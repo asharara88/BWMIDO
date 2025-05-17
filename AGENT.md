@@ -8,7 +8,7 @@ This repository is a TypeScript + React wellness platform called **Biowell**, po
 npm install
 ```
 
-> ⚠️ *Note: In restricted network environments, **`** or **`** may hang due to lockfile or registry access issues. If so, skip install and continue with linting using pre-existing **\`\`**.*
+> ⚠️ *Note: In restricted network environments, `npm install` or `npm ci` may hang due to lockfile or registry access issues. If so, skip install and continue with linting using pre-existing `node_modules`.*
 >
 > If installation fails due to network restrictions (e.g., `EHOSTUNREACH`), you may create a dummy folder:
 >
@@ -78,7 +78,7 @@ Workflow file: `.github/workflows/codeql.yml`
 ## 🧩 Key Modules
 
 * `App.tsx`: Entry point. Uses `ProtectedRoute` component for auth gating and explicit `JSX.Element` return type. Inline auth logic removed.
-* `ProtectedRoute.tsx`: Central auth gate using `useSaveRedirect` and context state. Handles redirect persistence, loading UI, and guards. **Ensure the import in **\`\`** is:**
+* `ProtectedRoute.tsx`: Central auth gate using `useSaveRedirect` and context state. Handles redirect persistence, loading UI, and guards.
 
 ```ts
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -173,10 +173,10 @@ npm run test    # safe placeholder
 * Lint and test scripts are safe for offline use
 * ESLint uses Flat Config (not `.eslintrc`)
 * Entry file: `src/App.tsx`, which imports `ProtectedRoute`
-* `ProtectedRoute` is no longer defined inline
-* This is a single-service repo, not monorepo
-* If `npm install` fails, create `node_modules/.stub` to allow Codex and agents to continue
-* Onboarding steps are modular and dynamically rendered
+* `ProtectedRoute` should live in `src/components/auth/ProtectedRoute.tsx`
+* `useSaveRedirect.tsx` and `useSupplementFilter.tsx` should exist in `src/hooks/`
+* Onboarding steps live in `src/pages/onboarding/steps/`
+* If missing, Codex should scaffold all missing components or config
 * Codex may scaffold or extend `OnboardingPage.tsx` using the `steps[]` array + `stepIndex` controller
 * Codex may auto-complete `steps/config.ts` or step component logic based on usage
 
