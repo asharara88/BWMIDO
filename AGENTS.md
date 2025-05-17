@@ -180,6 +180,8 @@ npm run test    # safe placeholder
 * Codex may scaffold or extend `OnboardingPage.tsx` using the `steps[]` array + `stepIndex` controller
 * Codex may auto-complete `steps/config.ts` or step component logic based on usage
 
+Last Updated: 2025-05-17 10:09:38 UTC
+Author: asharara88
 ---
 
 This file supports Codex / Copilot / LLM integration in restricted or offline environments.
