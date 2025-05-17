@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Biowell AI - Personal Digital Health Coach
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5239b3f1-f78c-4857-ad9d-ad1bb351d322/deploy-status)](https://app.netlify.com/projects/biowellai/deploys)
