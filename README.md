@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Biowell AI - Personal Digital Health Coach
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5239b3f1-f78c-4857-ad9d-ad1bb351d322/deploy-status)](https://app.netlify.com/projects/biowellai/deploys)
@@ -95,3 +96,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+=======
+# BWMIDO
+version 2.0
+>>>>>>> 47e4a56b7da159707f2de74477cec405b7275786
