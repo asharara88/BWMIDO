@@ -26,7 +26,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     if (!user && !loading && !isDemo) {
       sessionStorage.setItem('redirectUrl', location.pathname);
     }
-  }, [user, loading, isDemo, location]);
+  }, [user, loading, isDemo, location.pathname]);
   
   if (loading) {
     return <div className="flex h-screen items-center justify-center">Loading...</div>;
