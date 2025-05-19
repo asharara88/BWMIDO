@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { SupabaseProvider } from './contexts/SupabaseContext';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 
 import Layout from './components/layout/Layout';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/auth/LoginPage';
 import SignupPage from './pages/auth/SignupPage';
-import OnboardingPage from './pages/auth/OnboardingPage';
+import OnboardingPage from './pages/onboarding/OnboardingPage';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import ChatPage from './pages/chat/ChatPage';
 import SupplementsPage from './pages/supplements/SupplementsPage';
@@ -17,27 +17,6 @@ import ProfilePage from './pages/profile/ProfilePage';
 import PricingPage from './pages/PricingPage';
 import HowItWorksPage from './pages/HowItWorksPage';
 
-// Protected route component
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { user, loading, isDemo } = useAuth();
-  const location = useLocation();
-  
-  useEffect(() => {
-    if (!user && !loading && !isDemo) {
-      sessionStorage.setItem('redirectUrl', location.pathname);
-    }
-  }, [user, loading, isDemo, location]);
-  
-  if (loading) {
-    return <div className="flex h-screen items-center justify-center">Loading...</div>;
-  }
-  
-  if (!user && !isDemo) {
-    return <Navigate to="/login" replace />;
-  }
-  
-  return <>{children}</>;
-};
 
 function App() {
   return (
