@@ -44,8 +44,7 @@ export async function callOpenAiFunction(prompt: string, context?: Record<string
         body: JSON.stringify({ 
           messages: [{ role: 'user', content: prompt }],
           context
-        }),
-        credentials: 'include'
+        })
       });
 
       if (!response.ok) {

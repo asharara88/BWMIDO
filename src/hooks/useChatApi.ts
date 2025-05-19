@@ -53,8 +53,7 @@ export function useChatApi() {
             goal: "improve deep sleep",
             device: "Apple Watch"
           }
-        }),
-        credentials: 'include'
+        })
       });
 
       if (!response.ok) {
