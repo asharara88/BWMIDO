@@ -8,6 +8,7 @@ import ShoppingCartSidebar from '../../components/supplements/ShoppingCartSideba
 import StackBuilder from '../../components/supplements/StackBuilder';
 import CheckoutForm from '../../components/supplements/CheckoutForm';
 import SupplementRecommender from '../../components/supplements/SupplementRecommender';
+import useSupplementFilter from '../../hooks/useSupplementFilter';
 
 interface Supplement {
   id: string;
@@ -194,18 +195,17 @@ const SupplementsPage = () => {
     setActiveView('browse');
   };
 
-  const filteredSupplements = supplements.filter(supplement => {
-    return searchQuery === '' || 
-      supplement.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      supplement.description.toLowerCase().includes(searchQuery.toLowerCase());
-  });
+  const filteredSupplements = useSupplementFilter(
+    supplements,
+    searchQuery,
+    ['name', 'description']
+  );
 
-  const filteredStacks = stacks.filter(stack => {
-    return searchQuery === '' || 
-      stack.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      stack.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      stack.category.toLowerCase().includes(searchQuery.toLowerCase());
-  });
+  const filteredStacks = useSupplementFilter(
+    stacks,
+    searchQuery,
+    ['name', 'description', 'category']
+  );
 
   // Pagination logic
   const pageSupplements = filteredSupplements.slice(

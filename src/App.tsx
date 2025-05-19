@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { SupabaseProvider } from './contexts/SupabaseContext';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 
 import Layout from './components/layout/Layout';
@@ -16,28 +15,16 @@ import CheckoutPage from './pages/checkout/CheckoutPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import PricingPage from './pages/PricingPage';
 import HowItWorksPage from './pages/HowItWorksPage';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
-// Protected route component
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { user, loading, isDemo } = useAuth();
-  const location = useLocation();
-  
-  useEffect(() => {
-    if (!user && !loading && !isDemo) {
-      sessionStorage.setItem('redirectUrl', location.pathname);
-    }
-  }, [user, loading, isDemo, location]);
-  
-  if (loading) {
-    return <div className="flex h-screen items-center justify-center">Loading...</div>;
-  }
-  
-  if (!user && !isDemo) {
-    return <Navigate to="/login" replace />;
-  }
-  
-  return <>{children}</>;
-};
+const protectedRoutes = [
+  { path: 'dashboard', element: <DashboardPage /> },
+  { path: 'chat', element: <ChatPage /> },
+  { path: 'supplements', element: <SupplementsPage /> },
+  { path: 'checkout', element: <CheckoutPage /> },
+  { path: 'profile', element: <ProfilePage /> },
+];
+
 
 function App() {
   return (
@@ -52,31 +39,15 @@ function App() {
               <Route path="onboarding" element={<OnboardingPage />} />
               <Route path="pricing" element={<PricingPage />} />
               <Route path="how-it-works" element={<HowItWorksPage />} />
-              <Route path="dashboard" element={
-                <ProtectedRoute>
-                  <DashboardPage />
-                </ProtectedRoute>
-              } />
-              <Route path="chat" element={
-                <ProtectedRoute>
-                  <ChatPage />
-                </ProtectedRoute>
-              } />
-              <Route path="supplements" element={
-                <ProtectedRoute>
-                  <SupplementsPage />
-                </ProtectedRoute>
-              } />
-              <Route path="checkout" element={
-                <ProtectedRoute>
-                  <CheckoutPage />
-                </ProtectedRoute>
-              } />
-              <Route path="profile" element={
-                <ProtectedRoute>
-                  <ProfilePage />
-                </ProtectedRoute>
-              } />
+              {protectedRoutes.map(({ path, element }) => (
+                <Route
+                  key={path}
+                  path={path}
+                  element={(
+                    <ProtectedRoute pathname={`/${path}`}>{element}</ProtectedRoute>
+                  )}
+                />
+              ))}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>
