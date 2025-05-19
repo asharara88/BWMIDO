@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 import HealthCoach from '../../components/chat/AIHealthCoach';
+import ErrorBoundary from '../../components/common/ErrorBoundary';
 
 const ChatPage = () => {
   return (
@@ -19,7 +20,9 @@ const ChatPage = () => {
         </div>
 
         <div className="h-[calc(100vh-16rem)]">
-          <HealthCoach />
+          <ErrorBoundary>
+            <HealthCoach />
+          </ErrorBoundary>
         </div>
 
         <div className="mt-4 rounded-lg border border-[hsl(var(--color-border))] bg-[hsl(var(--color-card))] p-4 text-sm text-text-light">

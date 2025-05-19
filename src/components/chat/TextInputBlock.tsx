@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 interface TextInputBlockProps {
   id: string;
@@ -16,13 +16,20 @@ const TextInputBlock = ({
   onSubmit
 }: TextInputBlockProps) => {
   const [value, setValue] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const submitTimer = useRef<number>();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (value.trim() && onSubmit) {
+    if (!value.trim() || !onSubmit || submitting) return;
+
+    setSubmitting(true);
+    if (submitTimer.current) clearTimeout(submitTimer.current);
+    submitTimer.current = window.setTimeout(() => {
       onSubmit(value);
       setValue('');
-    }
+      setSubmitting(false);
+    }, 300);
   };
 
   return (
@@ -44,9 +51,9 @@ const TextInputBlock = ({
           <button
             type="submit"
             className="rounded-lg bg-primary px-4 py-2 text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-50"
-            disabled={!value.trim()}
+            disabled={!value.trim() || submitting}
           >
-            Send
+            {submitting ? 'Sending...' : 'Send'}
           </button>
         </div>
       </form>
