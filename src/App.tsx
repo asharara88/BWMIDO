@@ -17,6 +17,14 @@ import ProfilePage from './pages/profile/ProfilePage';
 import PricingPage from './pages/PricingPage';
 import HowItWorksPage from './pages/HowItWorksPage';
 
+const protectedRoutes = [
+  { path: 'dashboard', element: <DashboardPage /> },
+  { path: 'chat', element: <ChatPage /> },
+  { path: 'supplements', element: <SupplementsPage /> },
+  { path: 'checkout', element: <CheckoutPage /> },
+  { path: 'profile', element: <ProfilePage /> },
+];
+
 // Protected route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading, isDemo } = useAuth();
@@ -52,31 +60,13 @@ function App() {
               <Route path="onboarding" element={<OnboardingPage />} />
               <Route path="pricing" element={<PricingPage />} />
               <Route path="how-it-works" element={<HowItWorksPage />} />
-              <Route path="dashboard" element={
-                <ProtectedRoute>
-                  <DashboardPage />
-                </ProtectedRoute>
-              } />
-              <Route path="chat" element={
-                <ProtectedRoute>
-                  <ChatPage />
-                </ProtectedRoute>
-              } />
-              <Route path="supplements" element={
-                <ProtectedRoute>
-                  <SupplementsPage />
-                </ProtectedRoute>
-              } />
-              <Route path="checkout" element={
-                <ProtectedRoute>
-                  <CheckoutPage />
-                </ProtectedRoute>
-              } />
-              <Route path="profile" element={
-                <ProtectedRoute>
-                  <ProfilePage />
-                </ProtectedRoute>
-              } />
+              {protectedRoutes.map(({ path, element }) => (
+                <Route
+                  key={path}
+                  path={path}
+                  element={<ProtectedRoute>{element}</ProtectedRoute>}
+                />
+              ))}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>
