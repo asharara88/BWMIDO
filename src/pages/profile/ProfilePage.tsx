@@ -52,10 +52,10 @@ const ProfilePage = () => {
           .from('profiles')
           .select('first_name, last_name')
           .eq('id', user.id)
-          .single();
-        
-        if (error) throw error;
-        
+          .maybeSingle();
+
+        if (error && !error.message.includes('contains 0 rows')) throw error;
+
         if (data) {
           setFirstName(data.first_name || '');
           setLastName(data.last_name || '');
