@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSupabase } from "../contexts/SupabaseContext";
 
-export function useChatApi() {
+export function Api() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { supabase } = useSupabase();

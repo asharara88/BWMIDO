@@ -3,7 +3,7 @@ import { useSupabase } from '../contexts/SupabaseContext';
 import { useAuth } from '../contexts/AuthContext';
 import { ChatMessage, sendChatMessage } from '../utils/openai';
 
-export function useChat() {
+export function () {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
