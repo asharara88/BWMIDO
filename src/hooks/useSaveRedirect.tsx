@@ -1,12 +1,20 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
-export default function useSaveRedirect(isAuthenticated: boolean): void {
+/**
+ * Persists the user's intended destination when they hit a protected route.
+ * Stores the current pathname in sessionStorage if unauthenticated.
+ */
+const useSaveRedirect = () => {
+  const { user, loading, isDemo } = useAuth();
   const location = useLocation();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!user && !loading && !isDemo) {
       sessionStorage.setItem('redirectUrl', location.pathname);
     }
-  }, [isAuthenticated, location]);
-}
+  }, [user, loading, isDemo, location]);
+};
+
+export default useSaveRedirect;

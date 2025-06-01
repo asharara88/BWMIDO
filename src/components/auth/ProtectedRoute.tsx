@@ -3,10 +3,10 @@ import { useAuthGuard } from '../../hooks/useAuthGuard';
 import useSaveRedirect from '../../hooks/useSaveRedirect';
 
 interface ProtectedRouteProps {
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 
-const ProtectedRoute = ({ children }: ProtectedRouteProps): JSX.Element => {
+const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { isAuthenticated, isLoading } = useAuthGuard();
   useSaveRedirect(isAuthenticated);
 
@@ -20,7 +20,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps): JSX.Element => {
     return <Navigate to="/login" replace />;
   }
 
-  return children;
+  return <>{children}</>;
 };
 
 export default ProtectedRoute;

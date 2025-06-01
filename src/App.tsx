@@ -3,6 +3,8 @@ import { SupabaseProvider } from './contexts/SupabaseContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 
+import ProtectedRoute from './components/auth/ProtectedRoute';
+
 import Layout from './components/layout/Layout';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/auth/LoginPage';
@@ -15,7 +17,6 @@ import CheckoutPage from './pages/checkout/CheckoutPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import PricingPage from './pages/PricingPage';
 import HowItWorksPage from './pages/HowItWorksPage';
-import ProtectedRoute from './components/auth/ProtectedRoute';
 
 function App(): JSX.Element {
   return (
