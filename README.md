@@ -75,6 +75,8 @@ supabase functions deploy openai-proxy
 supabase secrets set OPENAI_API_KEY=your-openai-api-key
 ```
 
+6. If you see `service not healthy` errors when starting Supabase, run `supabase start` to launch a local Supabase stack.
+
 ## Project Structure
 
 ```
