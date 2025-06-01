@@ -87,6 +87,10 @@ supabase secrets set OPENAI_API_KEY=your-openai-api-key
   /migrations   // SQL migration files
 /utils          // Utility functions
 ```
+## Deployment
+
+This project is continuously deployed to [Netlify](https://www.netlify.com/) using the configuration in `netlify.toml`. Every push to `main` triggers a Netlify build and deploy. There is no Vercel integration.
+
 
 ## Contributing
 
