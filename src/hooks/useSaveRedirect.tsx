@@ -14,7 +14,7 @@ const useSaveRedirect = () => {
     if (!user && !loading && !isDemo) {
       sessionStorage.setItem('redirectUrl', location.pathname);
     }
-  }, [user, loading, isDemo, location]);
+  }, [user, loading, isDemo, location.pathname]);
 };
 
 export default useSaveRedirect;
