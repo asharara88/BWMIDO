@@ -31,31 +31,46 @@ function App(): JSX.Element {
               <Route path="onboarding" element={<OnboardingPage />} />
               <Route path="pricing" element={<PricingPage />} />
               <Route path="how-it-works" element={<HowItWorksPage />} />
-              <Route path="dashboard" element={
-                <ProtectedRoute>
-                  <DashboardPage />
-                </ProtectedRoute>
-              } />
-              <Route path="chat" element={
-                <ProtectedRoute>
-                  <ChatPage />
-                </ProtectedRoute>
-              } />
-              <Route path="supplements" element={
-                <ProtectedRoute>
-                  <SupplementsPage />
-                </ProtectedRoute>
-              } />
-              <Route path="checkout" element={
-                <ProtectedRoute>
-                  <CheckoutPage />
-                </ProtectedRoute>
-              } />
-              <Route path="profile" element={
-                <ProtectedRoute>
-                  <ProfilePage />
-                </ProtectedRoute>
-              } />
+              <Route
+                path="dashboard"
+                element={
+                  <ProtectedRoute>
+                    <DashboardPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="chat"
+                element={
+                  <ProtectedRoute>
+                    <ChatPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="supplements"
+                element={
+                  <ProtectedRoute>
+                    <SupplementsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="checkout"
+                element={
+                  <ProtectedRoute>
+                    <CheckoutPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="profile"
+                element={
+                  <ProtectedRoute>
+                    <ProfilePage />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>
