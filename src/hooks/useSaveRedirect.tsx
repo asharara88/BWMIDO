@@ -6,7 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
  * Persist the path a user attempted to access before authentication.
  * Stores the current location in sessionStorage when no user is logged in.
  */
-export function useSaveRedirect() {
+const useSaveRedirect = () => {
   const { user, loading, isDemo } = useAuth();
   const location = useLocation();
 
@@ -15,4 +15,6 @@ export function useSaveRedirect() {
       sessionStorage.setItem('redirectUrl', location.pathname);
     }
   }, [user, loading, isDemo, location.pathname]);
-}
+};
+
+export default useSaveRedirect;
