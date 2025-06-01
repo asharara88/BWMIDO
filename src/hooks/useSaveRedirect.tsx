@@ -3,10 +3,10 @@ import { useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 /**
- * Persist the path a user attempted to access before authentication.
- * Stores the current location in sessionStorage when no user is logged in.
+ * Persists the user's intended destination when they hit a protected route.
+ * Stores the current pathname in sessionStorage if unauthenticated.
  */
-export function useSaveRedirect() {
+const useSaveRedirect = () => {
   const { user, loading, isDemo } = useAuth();
   const location = useLocation();
 
@@ -15,4 +15,6 @@ export function useSaveRedirect() {
       sessionStorage.setItem('redirectUrl', location.pathname);
     }
   }, [user, loading, isDemo, location.pathname]);
-}
+};
+
+export default useSaveRedirect;
