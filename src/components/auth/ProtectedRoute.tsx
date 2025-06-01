@@ -1,26 +1,26 @@
-import { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuthGuard } from '../../hooks/useAuthGuard';
 import useSaveRedirect from '../../hooks/useSaveRedirect';
 
 interface ProtectedRouteProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
-export default function ProtectedRoute({ children }: ProtectedRouteProps): JSX.Element {
-  const { user, loading, isDemo } = useAuth();
+const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+  const { isAuthenticated, isLoading } = useAuthGuard();
+  useSaveRedirect(isAuthenticated);
 
-  useSaveRedirect(user, loading, isDemo);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center">Loading...</div>
     );
   }
 
-  if (!user && !isDemo) {
+  if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
   return <>{children}</>;
-}
+};
+
+export default ProtectedRoute;

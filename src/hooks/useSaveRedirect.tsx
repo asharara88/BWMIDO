@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 /**
- * Saves the current path so we can redirect the user back after login.
- * It only runs when the user is unauthenticated and not loading.
+ * Persist the path a user attempted to access before authentication.
+ * Stores the current location in sessionStorage when no user is logged in.
  */
-export default function useSaveRedirect(
-  user: unknown,
-  loading: boolean,
-  isDemo: boolean
-) {
+const useSaveRedirect = () => {
+  const { user, loading, isDemo } = useAuth();
   const location = useLocation();
 
   useEffect(() => {
@@ -17,4 +15,6 @@ export default function useSaveRedirect(
       sessionStorage.setItem('redirectUrl', location.pathname);
     }
   }, [user, loading, isDemo, location.pathname]);
-}
+};
+
+export default useSaveRedirect;
