@@ -7,8 +7,8 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { isAuthenticated, isLoading } = useAuthGuard('/login');
-  useSaveRedirect();
+  const { isAuthenticated, isLoading } = useAuthGuard();
+  useSaveRedirect(isAuthenticated);
 
   if (isLoading) {
     return (

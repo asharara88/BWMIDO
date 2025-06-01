@@ -18,9 +18,7 @@ import ProfilePage from './pages/profile/ProfilePage';
 import PricingPage from './pages/PricingPage';
 import HowItWorksPage from './pages/HowItWorksPage';
 
-
-
-function App() {
+function App(): JSX.Element {
   return (
     <SupabaseProvider>
       <ThemeProvider>
