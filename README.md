@@ -95,7 +95,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-=======
-# BWMIDO
-version 2.0
->>>>>>> 47e4a56b7da159707f2de74477cec405b7275786
