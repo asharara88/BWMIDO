@@ -47,9 +47,7 @@ export default function CoachChat() {
             goal: "improve deep sleep",
             device: "Apple Watch"
           }
-        }),
-        // Add credentials to ensure cookies are sent
-        credentials: 'include'
+        })
       });
 
       if (!res.ok) {
