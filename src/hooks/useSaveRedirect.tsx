@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 /**
  * Persists the user's intended destination when they hit a protected route.
- * Stores the current pathname in sessionStorage if unauthenticated.
+ * Stores the current pathname (and query string) in sessionStorage if unauthenticated.
  */
 const useSaveRedirect = () => {
   const { user, loading, isDemo } = useAuth();
