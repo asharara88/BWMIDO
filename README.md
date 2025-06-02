@@ -88,6 +88,20 @@ supabase secrets set OPENAI_API_KEY=your-openai-api-key
 /utils          // Utility functions
 ```
 
+### Linting and Testing
+
+Run ESLint to check the codebase:
+
+```bash
+npm run lint
+```
+
+Run the placeholder test script:
+
+```bash
+npm run test
+```
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -95,7 +109,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-=======
-# BWMIDO
-version 2.0
->>>>>>> 47e4a56b7da159707f2de74477cec405b7275786
