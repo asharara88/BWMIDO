@@ -91,7 +91,10 @@ supabase secrets set OPENAI_API_KEY=your-openai-api-key
 ```
 ## Deployment
 
-This project is continuously deployed to [Netlify](https://www.netlify.com/) using the configuration in `netlify.toml`. Every push to `main` triggers a Netlify build and deploy. There is no Vercel integration.
+This project is continuously deployed to [Netlify](https://www.netlify.com/) using the configuration in `netlify.toml`. Every push to `main` triggers a Netlify build and deploy.
+
+> **Note**
+> There is **no** Vercel integration in this repository. If your repository is accidentally connected to Vercel, remove any `.vercel` directory or Vercel-specific GitHub actions to avoid unexpected deployments.
 
 
 ### Linting and Testing
