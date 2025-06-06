@@ -14,37 +14,45 @@ try {
   // Optional dependencies weren't installed. Fallback to minimal config.
 }
 
-const baseConfig = tseslint && reactHooks && reactRefresh && globals
-  ? tseslint.config(
-      { ignores: ['dist'] },
-      {
-        extends: [js.configs.recommended, ...tseslint.configs.recommended],
-        files: ['**/*.{ts,tsx}'],
-        languageOptions: {
-          ecmaVersion: 2020,
-          globals: globals.browser,
-        },
-        plugins: {
-          'react-hooks': reactHooks,
-          'react-refresh': reactRefresh,
-        },
-        rules: {
-          ...reactHooks.configs.recommended.rules,
-          'react-refresh/only-export-components': [
-            'warn',
-            { allowConstantExport: true },
-          ],
-        },
-      }
-    )
-  : [
-      {
-        ignores: ['dist'],
-        files: ['**/*.{ts,tsx}'],
-        languageOptions: {
-          ecmaVersion: 2020,
-        },
-      },
-    ];
+const baseConfig = [
+  {
+    ignores: ['dist', 'biowell deploy/**', '*.zip', 'tmp/**'],
+  },
+  ...(
+    tseslint && reactHooks && reactRefresh && globals
+      ? tseslint.config(
+          {
+            files: ['**/*.{ts,tsx}'],
+            languageOptions: {
+              ecmaVersion: 2020,
+              globals: globals.browser,
+            },
+          },
+          {
+            extends: [js.configs.recommended, ...tseslint.configs.recommended],
+            plugins: {
+              'react-hooks': reactHooks,
+              'react-refresh': reactRefresh,
+            },
+            rules: {
+              ...reactHooks.configs.recommended.rules,
+              'react-refresh/only-export-components': [
+                'warn',
+                { allowConstantExport: true },
+              ],
+            },
+          }
+        )
+      : [
+          {
+            files: ['**/*.{ts,tsx}'],
+            languageOptions: {
+              ecmaVersion: 2020,
+            },
+          },
+        ]
+  ),
+];
 
 export default baseConfig;
+
