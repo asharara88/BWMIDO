@@ -9,7 +9,7 @@ interface LifestyleStepProps {
     existingConditions: string[];
     medications: string[];
   };
-  updateFormData: (data: Partial<typeof formData>) => void;
+  updateFormData: (data: Partial<LifestyleStepProps['formData']>) => void;
   nextStep: () => void;
   prevStep: () => void;
 }
@@ -35,21 +35,19 @@ const LifestyleStep = ({
 }: LifestyleStepProps) => {
   const handleConditionToggle = (condition: string) => {
     let updatedConditions;
-    
-    // Handle "None" special case
+
     if (condition === 'None') {
       updatedConditions = formData.existingConditions.includes('None')
         ? []
         : ['None'];
     } else {
-      // Remove "None" if it exists and add the new condition
       updatedConditions = formData.existingConditions
         .filter((c) => c !== 'None')
         .includes(condition)
         ? formData.existingConditions.filter((c) => c !== condition)
         : [...formData.existingConditions.filter((c) => c !== 'None'), condition];
     }
-    
+
     updateFormData({ existingConditions: updatedConditions });
   };
 
@@ -58,7 +56,6 @@ const LifestyleStep = ({
       .split(',')
       .map((med) => med.trim())
       .filter((med) => med !== '');
-    
     updateFormData({ medications: medsArray });
   };
 
@@ -74,7 +71,7 @@ const LifestyleStep = ({
       transition={{ duration: 0.5 }}
     >
       <h2 className="mb-6 text-xl font-semibold">Lifestyle & Health</h2>
-      
+
       <form onSubmit={handleSubmit}>
         <div className="mb-6">
           <label htmlFor="sleepHours" className="label">
@@ -92,7 +89,7 @@ const LifestyleStep = ({
             required
           />
         </div>
-        
+
         <div className="mb-6">
           <label className="label">Exercise Frequency</label>
           <div className="grid gap-3 md:grid-cols-4">
@@ -124,7 +121,7 @@ const LifestyleStep = ({
             ))}
           </div>
         </div>
-        
+
         <div className="mb-6">
           <label className="label">Diet Preference</label>
           <div className="grid gap-3 md:grid-cols-3">
@@ -158,7 +155,7 @@ const LifestyleStep = ({
             ))}
           </div>
         </div>
-        
+
         <div className="mb-6">
           <label className="label">Stress Level</label>
           <div className="grid gap-3 md:grid-cols-4">
@@ -185,13 +182,13 @@ const LifestyleStep = ({
             ))}
           </div>
         </div>
-        
+
         <div className="mb-6">
           <label className="label">Existing Health Conditions</label>
           <div className="grid gap-2 md:grid-cols-2">
             {conditionOptions.map((condition) => {
               const isSelected = formData.existingConditions.includes(condition);
-              
+
               return (
                 <label
                   key={condition}
@@ -216,7 +213,7 @@ const LifestyleStep = ({
             })}
           </div>
         </div>
-        
+
         <div className="mb-6">
           <label htmlFor="medications" className="label">
             Current Medications & Supplements
@@ -229,10 +226,15 @@ const LifestyleStep = ({
             onChange={handleMedicationsChange}
           ></textarea>
         </div>
-        
-        <button type="submit" className="btn-primary w-full py-3">
-          Continue
-        </button>
+
+        <div className="flex justify-between gap-3">
+          <button type="button" onClick={prevStep} className="btn-outline w-full">
+            Back
+          </button>
+          <button type="submit" className="btn-primary w-full">
+            Continue
+          </button>
+        </div>
       </form>
     </motion.div>
   );

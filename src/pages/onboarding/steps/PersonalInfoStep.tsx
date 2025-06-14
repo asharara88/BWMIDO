@@ -9,7 +9,7 @@ interface PersonalInfoStepProps {
     height: string;
     weight: string;
   };
-  updateFormData: (data: Partial<typeof formData>) => void;
+  updateFormData: (data: Partial<PersonalInfoStepProps['formData']>) => void;
   nextStep: () => void;
   prevStep: () => void;
 }
@@ -32,7 +32,6 @@ const PersonalInfoStep = ({
       transition={{ duration: 0.5 }}
     >
       <h2 className="mb-6 text-xl font-semibold">Personal Information</h2>
-      
       <form onSubmit={handleSubmit}>
         <div className="mb-6 grid gap-4 md:grid-cols-2">
           <div>
@@ -48,7 +47,6 @@ const PersonalInfoStep = ({
               required
             />
           </div>
-          
           <div>
             <label htmlFor="lastName" className="label">
               Last Name
@@ -63,7 +61,7 @@ const PersonalInfoStep = ({
             />
           </div>
         </div>
-        
+
         <div className="mb-6">
           <label htmlFor="age" className="label">
             Age
@@ -79,7 +77,7 @@ const PersonalInfoStep = ({
             required
           />
         </div>
-        
+
         <div className="mb-6">
           <label className="label">Gender</label>
           <div className="grid gap-3 md:grid-cols-3">
@@ -106,7 +104,7 @@ const PersonalInfoStep = ({
             ))}
           </div>
         </div>
-        
+
         <div className="mb-6 grid gap-4 md:grid-cols-2">
           <div>
             <label htmlFor="height" className="label">
@@ -123,7 +121,6 @@ const PersonalInfoStep = ({
               required
             />
           </div>
-          
           <div>
             <label htmlFor="weight" className="label">
               Weight (kg)
@@ -140,10 +137,15 @@ const PersonalInfoStep = ({
             />
           </div>
         </div>
-        
-        <button type="submit" className="btn-primary w-full py-3">
-          Continue
-        </button>
+
+        <div className="flex justify-between gap-3">
+          <button type="button" onClick={prevStep} className="btn-outline w-full">
+            Back
+          </button>
+          <button type="submit" className="btn-primary w-full">
+            Continue
+          </button>
+        </div>
       </form>
     </motion.div>
   );

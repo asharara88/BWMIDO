@@ -1,12 +1,25 @@
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight } from 'lucide-react';
 
+// If you want to keep the more flexible prop interface from the "codex/introduce-modular-onboarding-steps" branch:
 interface CompletionStepProps {
-  completeOnboarding: () => Promise<void>;
-  loading: boolean;
+  completeOnboarding?: () => Promise<void>;
+  onNext?: () => void;
+  loading?: boolean;
 }
 
-const CompletionStep = ({ completeOnboarding, loading }: CompletionStepProps) => {
+const CompletionStep = ({
+  completeOnboarding,
+  onNext,
+  loading = false,
+}: CompletionStepProps) => {
+  // Prefer onNext if present, fallback to completeOnboarding for backward compatibility
+  const handleClick = onNext
+    ? () => onNext()
+    : completeOnboarding
+    ? () => completeOnboarding()
+    : undefined;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -22,13 +35,13 @@ const CompletionStep = ({ completeOnboarding, loading }: CompletionStepProps) =>
       >
         <CheckCircle className="h-10 w-10" />
       </motion.div>
-      
+
       <h2 className="mb-4 text-2xl font-bold">You're All Set!</h2>
-      
+
       <p className="mb-8 text-text-light">
         Thanks for sharing your health information. We'll use this to provide personalized insights and recommendations.
       </p>
-      
+
       <div className="mb-8 w-full rounded-lg bg-primary/5 p-5">
         <h3 className="mb-3 text-lg font-medium">What's Next?</h3>
         <ul className="space-y-3 text-left">
@@ -52,9 +65,9 @@ const CompletionStep = ({ completeOnboarding, loading }: CompletionStepProps) =>
           </li>
         </ul>
       </div>
-      
+
       <button
-        onClick={completeOnboarding}
+        onClick={handleClick}
         className="btn-primary flex w-full items-center justify-center gap-2 py-3"
         disabled={loading}
       >

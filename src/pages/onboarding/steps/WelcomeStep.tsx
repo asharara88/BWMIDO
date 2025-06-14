@@ -1,3 +1,4 @@
+codex/introduce-modular-onboarding-steps
 import { motion } from 'framer-motion';
 import { Activity, Users, LineChart, MessageCircle } from 'lucide-react';
 
@@ -8,6 +9,15 @@ interface WelcomeStepProps {
 const WelcomeStep = ({ nextStep }: WelcomeStepProps) => {
   return (
     <div className="flex flex-col items-center">
+
+import { Activity } from 'lucide-react';
+import { motion } from 'framer-motion';
+import type { StepProps } from './types';
+
+const WelcomeStep = ({ onNext }: StepProps) => {
+  return (
+    <div className="flex flex-col items-center text-center">
+main
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -16,6 +26,7 @@ const WelcomeStep = ({ nextStep }: WelcomeStepProps) => {
       >
         <Activity className="h-8 w-8" />
       </motion.div>
+codex/introduce-modular-onboarding-steps
       
       <h2 className="mb-6 text-center text-2xl font-bold">Let's personalize your health journey</h2>
       
@@ -72,6 +83,15 @@ const WelcomeStep = ({ nextStep }: WelcomeStepProps) => {
       <p className="mt-4 text-center text-xs text-text-light">
         Your information is private and secure. We only use it to provide personalized recommendations.
       </p>
+
+      <h2 className="mb-4 text-2xl font-bold">Let's personalize your health journey</h2>
+      <p className="mb-8 text-text-light">
+        We'll ask a few questions to tailor the experience for you.
+      </p>
+      <button onClick={() => onNext()} className="btn-primary w-full py-3">
+        Let's Get Started
+      </button>
+main
     </div>
   );
 };

@@ -1,4 +1,7 @@
+codex/introduce-modular-onboarding-steps
 import { ComponentType } from 'react';
+=======
+main
 import WelcomeStep from './WelcomeStep';
 import PersonalInfoStep from './PersonalInfoStep';
 import HealthGoalsStep from './HealthGoalsStep';
@@ -6,6 +9,7 @@ import LifestyleStep from './LifestyleStep';
 import WearablesStep from './WearablesStep';
 import CompletionStep from './CompletionStep';
 
+codex/introduce-modular-onboarding-steps
 export interface StepConfig {
   title: string;
   component: ComponentType<any>;
@@ -21,3 +25,13 @@ const steps: StepConfig[] = [
 ];
 
 export default steps;
+=======
+export default [
+  WelcomeStep,
+  PersonalInfoStep,
+  HealthGoalsStep,
+  LifestyleStep,
+  WearablesStep,
+  CompletionStep,
+];
+main
