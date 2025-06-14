@@ -44,11 +44,19 @@ cd biowell-ai
 npm install
 ```
 
-3. Create a `.env` file based on `.env.example` and add your Supabase credentials:
+3. Create a `.env` file based on `.env.example` and fill in your API keys:
 
 ```
 VITE_SUPABASE_URL=your-supabase-url
 VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+VITE_SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+VITE_SUPABASE_SERVICE_ROLE_SECRET=your-service-role-secret
+OPENAI_API_KEY=your-openai-api-key
+VITE_OPENAI_KEY=your-openai-key
+VITE_ELEVENLABS_API_KEY=your-elevenlabs-key
+VITE_GITHUB_TOKEN=your-github-token
+VITE_STACKBLITZ_API_KEY=your-stackblitz-key
+VITE_CAPTCHA_SECRET_KEY=your-captcha-secret
 VITE_STRIPE_PUBLISHABLE_KEY=your-stripe-publishable-key
 ```
 
@@ -75,6 +83,8 @@ supabase functions deploy openai-proxy
 supabase secrets set OPENAI_API_KEY=your-openai-api-key
 ```
 
+6. If you see `service not healthy` errors when starting Supabase, run `supabase start` to launch a local Supabase stack.
+
 ## Project Structure
 
 ```
@@ -87,6 +97,24 @@ supabase secrets set OPENAI_API_KEY=your-openai-api-key
   /migrations   // SQL migration files
 /utils          // Utility functions
 ```
+## Deployment
+
+This project is continuously deployed to [Netlify](https://www.netlify.com/) using the configuration in `netlify.toml`. Every push to `main` triggers a Netlify build and deploy. There is no Vercel integration.
+
+
+### Linting and Testing
+
+Run ESLint to check the codebase:
+
+```bash
+npm run lint
+```
+
+Run the placeholder test script:
+
+```bash
+npm run test
+```
 
 ## Contributing
 
@@ -95,7 +123,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-=======
-# BWMIDO
-version 2.0
->>>>>>> 47e4a56b7da159707f2de74477cec405b7275786
