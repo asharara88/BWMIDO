@@ -3,14 +3,10 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext .ts,.tsx --report-unused-disable-directives --max-warnings 0",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext ts,tsx --report-unused-directives --max-warnings 0",
     "preview": "vite preview",
     "clean": "rm -rf dist"
   },
@@ -29,8 +25,7 @@
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.21.1",
     "tailwind-merge": "^3.2.0",
-    "zustand": "^4.4.7",
-    "node-fetch": "^3.3.2"
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@eslint/js": "*",
@@ -45,12 +40,7 @@
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.5.3",
-codex/add-eslint-dependencies-to-package-json
     "typescript-eslint": "*",
     "vite": "^5.4.2"
-=======
-    "vite": "^5.4.2",
-    "gulp": "^4.0.2"
-main
   }
 }

@@ -32,6 +32,10 @@ const ProtectedRoute = ({
   }
 
   if (!isAuthenticated && !isDemo) {
+    // Log redirect for debugging purposes
+    if (process.env.NODE_ENV !== 'production') {
+      console.debug('ProtectedRoute redirect:', redirectPath);
+    }
     return <Navigate to={redirectPath} replace />;
   }
 
