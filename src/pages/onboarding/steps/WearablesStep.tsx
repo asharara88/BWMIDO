@@ -1,10 +1,5 @@
 import React from 'react';
-
-interface StepProps {
-  onNext: (data?: Record<string, any>) => void;
-  onBack: () => void;
-  formState: Record<string, any>;
-}
+import type { StepProps } from './types';
 
 const WearablesStep = ({ onNext, onBack }: StepProps): JSX.Element => (
   <div className="space-y-4 text-center">

@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-
-interface StepProps {
-  onNext: (data: Record<string, any>) => void;
-  onBack: () => void;
-  formState: Record<string, any>;
-}
+import type { StepProps } from './types';
 
 const options = [
   'Improve sleep',

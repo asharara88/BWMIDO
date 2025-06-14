@@ -1,17 +1,27 @@
-import React from 'react';
+import { Activity } from 'lucide-react';
+import { motion } from 'framer-motion';
+import type { StepProps } from './types';
 
-interface StepProps {
-  onNext: (data?: Record<string, any>) => void;
-  onBack: () => void;
-  formState: Record<string, any>;
-}
-
-const WelcomeStep = ({ onNext }: StepProps): JSX.Element => (
-  <div className="space-y-4 text-center">
-    <h2 className="text-2xl font-bold">Welcome to Biowell</h2>
-    <p>Let's personalize your health journey.</p>
-    <button className="btn-primary" onClick={() => onNext()}>Get Started</button>
-  </div>
-);
+const WelcomeStep = ({ onNext }: StepProps): JSX.Element => {
+  return (
+    <div className="flex flex-col items-center text-center">
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary"
+      >
+        <Activity className="h-8 w-8" />
+      </motion.div>
+      <h2 className="mb-4 text-2xl font-bold">Let's personalize your health journey</h2>
+      <p className="mb-8 text-text-light">
+        We'll ask a few questions to tailor the experience for you.
+      </p>
+      <button onClick={() => onNext()} className="btn-primary w-full py-3">
+        Let's Get Started
+      </button>
+    </div>
+  );
+};
 
 export default WelcomeStep;
