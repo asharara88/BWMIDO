@@ -116,6 +116,16 @@ Run the placeholder test script:
 npm run test
 ```
 
+## Testing
+
+The project currently does not include automated tests. Running `npm run test` will
+output a placeholder message and exit with status code `1`:
+
+```bash
+npm run test
+# => "Error: no test specified"
+```
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
