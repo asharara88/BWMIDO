@@ -9,7 +9,7 @@ import Layout from './components/layout/Layout';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/auth/LoginPage';
 import SignupPage from './pages/auth/SignupPage';
-import OnboardingPage from './pages/auth/OnboardingPage';
+import OnboardingPage from './pages/onboarding/OnboardingPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import ChatPage from './pages/chat/ChatPage';
 import SupplementsPage from './pages/supplements/SupplementsPage';
