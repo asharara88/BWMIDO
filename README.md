@@ -58,6 +58,7 @@ VITE_GITHUB_TOKEN=your-github-token
 VITE_STACKBLITZ_API_KEY=your-stackblitz-key
 VITE_CAPTCHA_SECRET_KEY=your-captcha-secret
 VITE_STRIPE_PUBLISHABLE_KEY=your-stripe-publishable-key
+SENTRY_DSN=your-sentry-dsn
 ```
 
 4. Start the development server:
@@ -81,9 +82,25 @@ supabase functions deploy openai-proxy
 
 ```bash
 supabase secrets set OPENAI_API_KEY=your-openai-api-key
+
+7. Configure Sentry for error monitoring:
+
+```bash
+supabase secrets set SENTRY_DSN=your-sentry-dsn
+```
 ```
 
 6. If you see `service not healthy` errors when starting Supabase, run `supabase start` to launch a local Supabase stack.
+
+### Health Check
+
+Deploy the `health-check` function to enable uptime monitoring:
+
+```bash
+supabase functions deploy health-check
+```
+
+You can then query `/functions/v1/health-check` to verify the API status.
 
 ## Project Structure
 
@@ -102,7 +119,7 @@ supabase secrets set OPENAI_API_KEY=your-openai-api-key
 This project is continuously deployed to [Netlify](https://www.netlify.com/) using the configuration in `netlify.toml`. Every push to `main` triggers a Netlify build and deploy. There is no Vercel integration.
 
 
-### Linting and Testing
+### Linting, Type Checking and Testing
 
 Run ESLint to check the codebase:
 
@@ -110,11 +127,19 @@ Run ESLint to check the codebase:
 npm run lint
 ```
 
-Run the placeholder test script:
+Run TypeScript for type checking:
 
 ```bash
-npm run test
+npx tsc --noEmit
 ```
+
+Run the test suite using Vitest:
+
+```bash
+npm run test -- --run
+```
+
+The CI workflow runs these checks automatically on every push and pull request.
 
 ## Contributing
 
@@ -123,3 +148,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+Automatic dependency updates are handled by Dependabot.
