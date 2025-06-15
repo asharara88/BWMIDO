@@ -1,67 +1,84 @@
-import { useState, useEffect } from 'react';
-import { Check } from 'lucide-react';
-import type { StepProps } from './types';
+import { motion } from 'framer-motion';
+import { CheckCircle, ArrowRight } from 'lucide-react';
 
-const goalOptions = [
-  'Improve sleep',
-  'Increase energy',
-  'Lose weight',
-  'Build muscle',
-];
+interface CompletionStepProps {
+  completeOnboarding?: () => Promise<void>;
+  onNext?: () => void;
+  loading?: boolean;
+}
 
-const HealthGoalsStep = ({ onNext, onBack, formState }: StepProps) => {
-  const [goals, setGoals] = useState<string[]>(formState.healthGoals || []);
-
-  useEffect(() => {
-    setGoals(formState.healthGoals || []);
-  }, [formState]);
-
-  const toggleGoal = (goal: string) => {
-    setGoals((prev) =>
-      prev.includes(goal) ? prev.filter((g) => g !== goal) : [...prev, goal]
-    );
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onNext({ healthGoals: goals });
-  };
+const CompletionStep = ({
+  completeOnboarding,
+  onNext,
+  loading = false,
+}: CompletionStepProps) => {
+  const handleClick =
+    onNext ?? completeOnboarding ?? (() => {});
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <h2 className="text-xl font-semibold">Health Goals</h2>
-      <div className="grid gap-3 md:grid-cols-2">
-        {goalOptions.map((goal) => {
-          const selected = goals.includes(goal);
-          return (
-            <label
-              key={goal}
-              className={`flex cursor-pointer items-center rounded-lg border p-3 transition ${selected ? 'border-primary bg-primary/5 text-primary' : 'border-gray-300 hover:border-gray-400'}`}
-            >
-              <input
-                type="checkbox"
-                checked={selected}
-                onChange={() => toggleGoal(goal)}
-                className="sr-only"
-              />
-              <span className={selected ? 'font-medium' : ''}>{goal}</span>
-              {selected && (
-                <Check className="ml-auto h-4 w-4 text-primary" />
-              )}
-            </label>
-          );
-        })}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col items-center text-center"
+    >
+      <motion.div
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-success/10 text-success"
+      >
+        <CheckCircle className="h-10 w-10" />
+      </motion.div>
+
+      <h2 className="mb-4 text-2xl font-bold">You're All Set!</h2>
+
+      <p className="mb-8 text-text-light">
+        Thanks for sharing your health information. We'll use this to provide personalized insights and recommendations.
+      </p>
+
+      <div className="mb-8 w-full rounded-lg bg-primary/5 p-5">
+        <h3 className="mb-3 text-lg font-medium">What's Next?</h3>
+        <ul className="space-y-3 text-left">
+          <li className="flex items-start">
+            <span className="mr-3 text-primary">1.</span>
+            <span>
+              <strong>Dashboard</strong>: View your health insights and personalized recommendations
+            </span>
+          </li>
+          <li className="flex items-start">
+            <span className="mr-3 text-primary">2.</span>
+            <span>
+              <strong>Chat with AI Coach</strong>: Get personalized health advice based on your data
+            </span>
+          </li>
+          <li className="flex items-start">
+            <span className="mr-3 text-primary">3.</span>
+            <span>
+              <strong>Explore Supplements</strong>: Discover supplements tailored to your health needs
+            </span>
+          </li>
+        </ul>
       </div>
-      <div className="flex justify-between gap-3">
-        <button type="button" onClick={onBack} className="btn-outline w-full">
-          Back
-        </button>
-        <button type="submit" className="btn-primary w-full" disabled={goals.length === 0}>
-          Continue
-        </button>
-      </div>
-    </form>
+
+      <button
+        onClick={handleClick}
+        className="btn-primary flex w-full items-center justify-center gap-2 py-3"
+        disabled={loading}
+      >
+        {loading ? (
+          <span className="flex items-center justify-center">
+            <span className="mr-2 h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+            Finalizing...
+          </span>
+        ) : (
+          <>
+            Go to Dashboard <ArrowRight className="h-5 w-5" />
+          </>
+        )}
+      </button>
+    </motion.div>
   );
 };
 
-export default HealthGoalsStep;
+export default CompletionStep;
