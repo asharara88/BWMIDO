@@ -141,6 +141,16 @@ npm run test -- --run
 
 The CI workflow runs these checks automatically on every push and pull request.
 
+## Testing
+
+The project currently does not include automated tests. Running `npm run test` will
+output a placeholder message and exit with status code `1`:
+
+```bash
+npm run test
+# => "Error: no test specified"
+```
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
