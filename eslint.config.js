@@ -1,3 +1,11 @@
+codex/fix-onboarding-index-and-protectedroute-import-path
+export default [
+  {
+    files: ['**/*.js'],
+    languageOptions: { ecmaVersion: 2020, globals: {} },
+  },
+];
+=======
 let globals;
 let reactHooks;
 let reactRefresh;
@@ -56,3 +64,4 @@ const baseConfig = [
 
 export default baseConfig;
 
+main

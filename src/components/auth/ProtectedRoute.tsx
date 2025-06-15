@@ -1,3 +1,28 @@
+codex/fix-onboarding-index-and-protectedroute-import-path
+import React, { ReactNode } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
+import useSaveRedirect from '../../hooks/useSaveRedirect';
+
+interface Props {
+  children: JSX.Element;
+}
+
+const ProtectedRoute = ({ children }: Props): JSX.Element => {
+  const { user, loading, isDemo } = useAuth();
+
+  useSaveRedirect(user, loading);
+
+  if (loading) {
+    return <div className="flex h-screen items-center justify-center">Loading...</div>;
+  }
+
+  if (!user && !isDemo) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+
 import { Navigate } from 'react-router-dom';
 import { useAuthGuard } from '../../hooks/useAuthGuard';
 import useSaveRedirect from '../../hooks/useSaveRedirect';
@@ -40,6 +65,7 @@ const ProtectedRoute = ({
   }
 
   return <>{children}</>;
+main
 };
 
 export default ProtectedRoute;
