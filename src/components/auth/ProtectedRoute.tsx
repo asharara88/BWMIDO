@@ -1,14 +1,20 @@
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useAuthGuard } from '../../hooks/useAuthGuard';
 import useSaveRedirect from '../../hooks/useSaveRedirect';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
+  /**
+   * Path to redirect unauthenticated users to. Defaults to "/login".
+   */
+  redirectPath?: string;
 }
 
-const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { isAuthenticated, isLoading, isDemo } = useAuthGuard(); // Make sure your hook returns isDemo if needed
-  const location = useLocation();
+const ProtectedRoute = ({
+  children,
+  redirectPath = '/login',
+}: ProtectedRouteProps) => {
+  const { isAuthenticated, isLoading, isDemo } = useAuthGuard(redirectPath);
 
   // Save redirect URL if not authenticated and not in demo mode
   useSaveRedirect(isAuthenticated);
@@ -26,7 +32,11 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   }
 
   if (!isAuthenticated && !isDemo) {
-    return <Navigate to="/login" replace />;
+    // Log redirect for debugging purposes
+    if (process.env.NODE_ENV !== 'production') {
+      console.debug('ProtectedRoute redirect:', redirectPath);
+    }
+    return <Navigate to={redirectPath} replace />;
   }
 
   return <>{children}</>;

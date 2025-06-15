@@ -17,7 +17,6 @@ import CheckoutPage from './pages/checkout/CheckoutPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import PricingPage from './pages/PricingPage';
 import HowItWorksPage from './pages/HowItWorksPage';
-import { ProtectedRoute } from './components/auth/ProtectedRoute';
 
 function App(): JSX.Element {
   return (
