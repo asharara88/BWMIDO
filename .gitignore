@@ -36,3 +36,5 @@ next-env.d.ts
 # IDE
 .idea
 .vscode
+# Ignore zip archives
+*.zip
