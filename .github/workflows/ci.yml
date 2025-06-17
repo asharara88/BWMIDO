@@ -16,6 +16,8 @@ jobs:
           node-version: 20
           cache: 'npm'
       - run: npm ci --ignore-scripts
-      - run: npm run lint
+      - name: Run ESLint
+        run: |
+          eslint . --max-warnings 0
       - run: npx tsc --noEmit
       - run: npm run test -- --run
