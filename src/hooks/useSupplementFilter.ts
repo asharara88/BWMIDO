@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+codex/implement-usesaveredirect-and-usesupplementfilter-hooks
 interface Supplement {
   name: string;
   description?: string | null;
@@ -25,3 +26,16 @@ export default function useSupplementFilter<T extends Supplement>(
     });
   }, [supplements, query]);
 }
+=======
+/**
+ * Filters an array of supplements by a search string.
+ * Returns the original array when the query is empty.
+ */
+export default function useSupplementFilter<T extends Record<string, any>>(list: T[], query: string): T[] {
+  return useMemo(() => {
+    if (!query) return list;
+    const lower = query.toLowerCase();
+    return list.filter(item => JSON.stringify(item).toLowerCase().includes(lower));
+  }, [list, query]);
+}
+main

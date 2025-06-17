@@ -555,3 +555,4 @@ const ShoppingCartSidebar = ({
 };
 
 export default ShoppingCartSidebar;
+export { ShoppingCartSidebar };
