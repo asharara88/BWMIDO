@@ -36,4 +36,8 @@ next-env.d.ts
 # IDE
 .idea
 .vscode
+ codex/securely-store-api-keys
+=======
+# Ignore zip archives
+main
 *.zip
