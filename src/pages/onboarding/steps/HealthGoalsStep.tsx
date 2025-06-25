@@ -1,84 +1,83 @@
 import { motion } from 'framer-motion';
-import { CheckCircle, ArrowRight } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 
-interface CompletionStepProps {
-  completeOnboarding?: () => Promise<void>;
-  onNext?: () => void;
-  loading?: boolean;
+interface HealthGoalsStepProps {
+  formData: {
+    goals: string[];
+  };
+  updateFormData: (data: Partial<HealthGoalsStepProps['formData']>) => void;
+  nextStep: () => void;
+  prevStep: () => void;
 }
 
-const CompletionStep = ({
-  completeOnboarding,
-  onNext,
-  loading = false,
-}: CompletionStepProps) => {
-  const handleClick =
-    onNext ?? completeOnboarding ?? (() => {});
+const goalOptions = [
+  'Improve sleep quality',
+  'Increase energy levels',
+  'Reduce stress',
+  'Optimize metabolic health',
+  'Enhance cognitive performance',
+  'Build muscle',
+  'Lose weight',
+  'Improve athletic performance',
+  'Support immune function',
+  'Balance hormones',
+  'Support fertility',
+  'Longevity and healthy aging',
+];
+
+const HealthGoalsStep = ({ formData, updateFormData, nextStep, prevStep }: HealthGoalsStepProps) => {
+  const toggleGoal = (goal: string) => {
+    const goals = formData.goals.includes(goal)
+      ? formData.goals.filter((g) => g !== goal)
+      : [...formData.goals, goal];
+    updateFormData({ goals });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    nextStep();
+  };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="flex flex-col items-center text-center"
-    >
-      <motion.div
-        initial={{ scale: 0.5, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.5 }}
-        className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-success/10 text-success"
-      >
-        <CheckCircle className="h-10 w-10" />
-      </motion.div>
-
-      <h2 className="mb-4 text-2xl font-bold">You're All Set!</h2>
-
-      <p className="mb-8 text-text-light">
-        Thanks for sharing your health information. We'll use this to provide personalized insights and recommendations.
-      </p>
-
-      <div className="mb-8 w-full rounded-lg bg-primary/5 p-5">
-        <h3 className="mb-3 text-lg font-medium">What's Next?</h3>
-        <ul className="space-y-3 text-left">
-          <li className="flex items-start">
-            <span className="mr-3 text-primary">1.</span>
-            <span>
-              <strong>Dashboard</strong>: View your health insights and personalized recommendations
-            </span>
-          </li>
-          <li className="flex items-start">
-            <span className="mr-3 text-primary">2.</span>
-            <span>
-              <strong>Chat with AI Coach</strong>: Get personalized health advice based on your data
-            </span>
-          </li>
-          <li className="flex items-start">
-            <span className="mr-3 text-primary">3.</span>
-            <span>
-              <strong>Explore Supplements</strong>: Discover supplements tailored to your health needs
-            </span>
-          </li>
-        </ul>
-      </div>
-
-      <button
-        onClick={handleClick}
-        className="btn-primary flex w-full items-center justify-center gap-2 py-3"
-        disabled={loading}
-      >
-        {loading ? (
-          <span className="flex items-center justify-center">
-            <span className="mr-2 h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
-            Finalizing...
-          </span>
-        ) : (
-          <>
-            Go to Dashboard <ArrowRight className="h-5 w-5" />
-          </>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+      <h2 className="mb-6 text-xl font-semibold">Health Goals</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-6 grid gap-3 md:grid-cols-2">
+          {goalOptions.map((goal) => (
+            <label
+              key={goal}
+              className={`flex items-center gap-2 rounded-lg border p-2 text-sm hover:bg-[hsl(var(--color-card-hover))] ${
+                formData.goals.includes(goal) ? 'border-primary bg-primary/5 text-primary' : 'border-[hsl(var(--color-border))]'
+              }`}
+            >
+              <input
+                type="checkbox"
+                value={goal}
+                checked={formData.goals.includes(goal)}
+                onChange={() => toggleGoal(goal)}
+                className="h-4 w-4 rounded border-[hsl(var(--color-border))] text-primary focus:ring-primary"
+              />
+              {goal}
+            </label>
+          ))}
+        </div>
+        {formData.goals.length === 0 && (
+          <div className="mb-6 flex items-center rounded-lg bg-amber-50 p-3 text-sm text-amber-800">
+            <AlertCircle className="mr-2 h-5 w-5" />
+            <p>Please select at least one goal</p>
+          </div>
         )}
-      </button>
+        <div className="flex justify-between gap-3">
+          <button type="button" onClick={prevStep} className="btn-outline w-full">
+            Back
+          </button>
+          <button type="submit" className="btn-primary w-full">
+            Continue
+          </button>
+        </div>
+      </form>
     </motion.div>
   );
 };
 
-export default CompletionStep;
+export default HealthGoalsStep;
